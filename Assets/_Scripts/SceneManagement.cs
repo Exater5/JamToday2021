@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
-{/*
+{
     public static SceneManagement instance;
-
+    
+    /*
     private void Awake() 
     {
         if (instance != null && instance != this)
@@ -18,9 +19,10 @@ public class SceneManagement : MonoBehaviour
         instance = this;
         DontDestroyOnLoad( this.gameObject );
     }
+    */
 
-    public void Menu()
+    public void StartGame()
     {
-        SceneManager.LoadScene("MainGame", LoadSceneMode.Single);
-    }*/
+        GameFlowEvents.LoadScene.Invoke("MainGame");
+    }
 }
