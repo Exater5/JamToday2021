@@ -6,10 +6,12 @@ using TMPro;
 
 public class InstructionsGenerator : MonoBehaviour
 {
-    [SerializeField] private List<string> tasks;
-    [SerializeField] private int currentTask = 0;
+    [SerializeField] private Animator _textAnimator;
 
-    [SerializeField] private string actualTask;
+    private List<string> tasks;
+    private int currentTask = 0;
+
+    private string actualTask;
 
     [SerializeField] private TextMeshProUGUI taskText;
 
@@ -43,6 +45,7 @@ public class InstructionsGenerator : MonoBehaviour
     {
         actualTask = tasks[currentTask];
         taskText.text = actualTask;
+        _textAnimator.Play("ShowTask");
         currentTask++;
     }
 }
