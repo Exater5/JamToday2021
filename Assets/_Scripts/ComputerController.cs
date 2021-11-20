@@ -14,6 +14,7 @@ public class ComputerController : MonoBehaviour
         if (_currentState)
         {
             _meshRenderer.material = _onMat;
+            GameTaskEvents.completeTask.Invoke(0);
         }
         else
         {

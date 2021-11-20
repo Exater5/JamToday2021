@@ -12,7 +12,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
     private float m_currentV = 0;
     private float m_currentH = 0;
 
-    private ComputerController _computerController;
+    private InteractableInstance _lastInteractableInstance;
     private bool _doingAction, _overInteractable, _overPickable;
     private GameObject _pickedObject;
     private PickThrowZone _lastPickThrowZone;
@@ -42,7 +42,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         {
             if (_overInteractable)
             {
-                if (Vector3.Angle(transform.forward, _computerController.transform.position) < 60)
+                if (Vector3.Angle(transform.forward, _lastInteractableInstance.transform.position) < 60)
                 {
                     StartCoroutine(Interact());
                 }
@@ -51,7 +51,10 @@ public class SimpleSampleCharacterControl : MonoBehaviour
             {
                 if (_pickedObject != null)
                 {
-                    StartCoroutine(Throw());
+                    if (Vector3.Angle(transform.forward, _lastPickThrowZone.GetThrowPoint().position) < 60)
+                    {
+                        StartCoroutine(Throw());
+                    }
                 }
                 else if(_lastPickThrowZone.CheckCurrentObject() != null)
                 {
@@ -111,9 +114,9 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         if (other.transform.gameObject.layer == 6) //Interactable
         {
             _overInteractable = true;
-            if (other.transform.GetComponent<ComputerController>() != null && _computerController == null)
+            if (other.transform.GetComponent<InteractableInstance>() != null && _lastInteractableInstance == null)
             {
-                _computerController = other.transform.GetComponent<ComputerController>();
+                _lastInteractableInstance = other.transform.GetComponent<InteractableInstance>();
             }
         }
         else if (other.transform.gameObject.layer == 7) //Pickable
@@ -130,6 +133,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
     {
         _overInteractable = false;
         _overPickable = false;
+        _lastInteractableInstance = null;
     }
 
     public IEnumerator Interact()
@@ -137,7 +141,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         _doingAction = true;
         m_animator.SetTrigger("Pickup");
         yield return new WaitForSeconds(0.5f);
-        _computerController.TurnState();
+        _lastInteractableInstance.Interact();
         yield return new WaitForSeconds(1f);
         _doingAction = false;
     }
