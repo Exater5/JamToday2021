@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UISprite : MonoBehaviour
 {
@@ -9,16 +10,11 @@ public class UISprite : MonoBehaviour
     [SerializeField] private bool _follow;
     [SerializeField] private Transform _objectToFollow;
     [SerializeField] private Vector3 _offset;
-    private void Start()
-    {
-        transform.LookAt(Camera.main.transform);
-        transform.Rotate(Vector3.up * 180);
-    }
 
     void LateUpdate () 
     {
         if (_follow)
-            transform.position = _objectToFollow.position - _offset;
+            transform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, _objectToFollow.position + _offset);
     }
 
     public void StartFade(bool appear)
@@ -35,13 +31,14 @@ public class UISprite : MonoBehaviour
 
     private IEnumerator Fade(Color originC, Color targetC)
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        Image image = GetComponent<Image>();
 
         for (float i = 0; i < _timeToFade; i += Time.deltaTime)
         {
-            spriteRenderer.color = Color.Lerp(originC, targetC, i / _timeToFade);
+            image.color = Color.Lerp(originC, targetC, i / _timeToFade);
             yield return null;
         }
-        spriteRenderer.color = targetC;
+
+        image.color = targetC;
     }
 }
