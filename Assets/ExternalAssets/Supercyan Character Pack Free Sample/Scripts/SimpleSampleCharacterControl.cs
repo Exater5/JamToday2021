@@ -48,7 +48,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
 
         if (_raycastOrigin != null)
         {
-            if (Physics.Raycast(_raycastOrigin.position, transform.TransformDirection(Vector3.forward), out hit, 1f, _layerMask))
+            if (Physics.Raycast(_raycastOrigin.position, transform.TransformDirection(Vector3.forward), out hit, 0.5f, _layerMask))
             {
                 _overInteractable = true;
                 if (hit.transform.GetComponent<ComputerController>() != null && _computerController == null)
