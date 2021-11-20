@@ -42,7 +42,10 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         {
             if (_overInteractable)
             {
-                StartCoroutine(Interact());
+                if (Vector3.Angle(transform.forward, _computerController.transform.position) < 60)
+                {
+                    StartCoroutine(Interact());
+                }
             }
             else if (_overPickable)
             {
