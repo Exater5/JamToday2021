@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 95665039525092722}
   - component: {fileID: 8748688856612009363}
   m_Layer: 0
-  m_Name: MaleFreeSimpleMovement1
+  m_Name: Personaje
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1024,10 +1024,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.1
+  m_Radius: 0.19414918
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: -0, y: 0.5, z: 0}
 --- !u!95 &95665039525092722
 Animator:
   serializedVersion: 3
@@ -1059,9 +1059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba158ff05cf30224f94bfdddec8e7635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moveSpeed: 2
+  m_moveSpeed: 2.5
   m_turnSpeed: 200
-  m_jumpForce: 4
   m_animator: {fileID: 95665039525092722}
   m_rigidBody: {fileID: 54084939265967506}
   m_controlMode: 1
