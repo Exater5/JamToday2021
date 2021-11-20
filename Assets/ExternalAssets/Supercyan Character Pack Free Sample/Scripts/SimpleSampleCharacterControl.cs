@@ -4,30 +4,16 @@ using UnityEngine;
 
 public class SimpleSampleCharacterControl : MonoBehaviour
 {
-    private enum ControlMode
-    {
-        /// <summary>
-        /// Up moves the character forward, left and right turn the character gradually and down moves the character backwards
-        /// </summary>
-        Tank,
-        /// <summary>
-        /// Character freely moves in the chosen direction from the perspective of the camera
-        /// </summary>
-        Direct
-    }
-
-    [SerializeField] private float m_moveSpeed = 2;
-    [SerializeField] private float m_turnSpeed = 200;
-
+    [SerializeField] private float m_moveSpeed = 2; 
     [SerializeField] private Animator m_animator = null;
     [SerializeField] private Rigidbody m_rigidBody = null;
-
-    [SerializeField] private ControlMode m_controlMode = ControlMode.Direct;
-
+    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private Transform _raycastOrigin;
     private float m_currentV = 0;
     private float m_currentH = 0;
 
-    private bool _doingAction;
+    private ComputerController _computerController;
+    private bool _doingAction, _overInteractable;
 
     private readonly float m_interpolation = 10;
     private readonly float m_walkScale = 0.33f;
@@ -50,13 +36,26 @@ public class SimpleSampleCharacterControl : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && !_doingAction)
+        if(Input.GetKeyDown(KeyCode.E) && !_doingAction && _overInteractable)
         {
             StartCoroutine(CrPickUp());
         }
         else if (Input.GetKeyDown(KeyCode.Q) && !_doingAction)
         {
             StartCoroutine(CrWave());
+        }
+        RaycastHit hit;
+        if (Physics.Raycast(_raycastOrigin.position, transform.TransformDirection(Vector3.forward), out hit, 1f, _layerMask))
+        {
+            _overInteractable = true;
+            if (hit.transform.GetComponent<ComputerController>() != null && _computerController == null)
+            {
+                _computerController = hit.transform.GetComponent<ComputerController>();
+            }
+        }
+        else
+        {
+            _overInteractable = false;
         }
     }
 
@@ -107,7 +106,9 @@ public class SimpleSampleCharacterControl : MonoBehaviour
     {
         _doingAction = true;
         m_animator.SetTrigger("Pickup");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
+        _computerController.TurnState();
+        yield return new WaitForSeconds(1f);
         _doingAction = false;
     }
     public IEnumerator CrWave()
