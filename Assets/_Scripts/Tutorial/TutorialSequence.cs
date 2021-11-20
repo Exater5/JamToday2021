@@ -27,7 +27,6 @@ public class TutorialSequence : MonoBehaviour
         }
     }
 
-
     IEnumerator ShowWASD()
     {
         yield return new WaitForSeconds(_startTime);
