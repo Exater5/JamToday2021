@@ -45,18 +45,22 @@ public class SimpleSampleCharacterControl : MonoBehaviour
             StartCoroutine(CrWave());
         }
         RaycastHit hit;
-        if (Physics.Raycast(_raycastOrigin.position, transform.TransformDirection(Vector3.forward), out hit, 1f, _layerMask))
+
+        if (_raycastOrigin != null)
         {
-            _overInteractable = true;
-            if (hit.transform.GetComponent<ComputerController>() != null && _computerController == null)
+            if (Physics.Raycast(_raycastOrigin.position, transform.TransformDirection(Vector3.forward), out hit, 1f, _layerMask))
             {
-                _computerController = hit.transform.GetComponent<ComputerController>();
+                _overInteractable = true;
+                if (hit.transform.GetComponent<ComputerController>() != null && _computerController == null)
+                {
+                    _computerController = hit.transform.GetComponent<ComputerController>();
+                }
             }
-        }
-        else
-        {
-            _overInteractable = false;
-        }
+            else
+            {
+                _overInteractable = false;
+            }
+        }        
     }
 
     private void FixedUpdate()
