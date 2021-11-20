@@ -9,7 +9,6 @@ public class UISprite : MonoBehaviour
     [SerializeField] private bool _follow;
     [SerializeField] private Transform _objectToFollow;
     [SerializeField] private Vector3 _offset;
-
     private void Start()
     {
         transform.LookAt(Camera.main.transform);
@@ -24,25 +23,25 @@ public class UISprite : MonoBehaviour
 
     public void StartFade(bool appear)
     {
-        StartCoroutine(Fade(appear));
+        if (appear)
+        {
+            StartCoroutine(Fade(_transparent, Color.white));
+        }
+        else
+        {
+            StartCoroutine(Fade(Color.white, _transparent));
+        }
     }
 
-    private IEnumerator Fade(bool appear)
+    private IEnumerator Fade(Color originC, Color targetC)
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         for (float i = 0; i < _timeToFade; i += Time.deltaTime)
         {
-            if (!appear)
-            {
-                spriteRenderer.color = Color.Lerp(Color.white, _transparent, i / _timeToFade);
-                yield return null;
-            }
-            else
-            {
-                spriteRenderer.color = Color.Lerp(_transparent, Color.white, i / _timeToFade);
-                yield return null;
-            }
+            spriteRenderer.color = Color.Lerp(originC, targetC, i / _timeToFade);
+            yield return null;
         }
+        spriteRenderer.color = targetC;
     }
 }
