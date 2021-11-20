@@ -18,7 +18,7 @@ public class CameraFollowChar : MonoBehaviour
     void Update()
     {
         float diff = _player.position.z - _startPlayerPos.z;
-        Vector3 targetRot = new Vector3(_convertedRotation.x, _convertedRotation.y + diff, _convertedRotation.z);
+        Vector3 targetRot = new Vector3(_convertedRotation.x, _convertedRotation.y - (diff * 2f), _convertedRotation.z);
         transform.rotation = Quaternion.Euler(targetRot);
     }
 }
