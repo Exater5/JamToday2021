@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.30588233, g: 0.7671237, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 0.39112288, b: 0.3066038, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.04313724, g: 0.08664422, b: 0.5568628, a: 1}
+  m_AmbientGroundColor: {r: 0.5566038, g: 0.18406685, b: 0.04463333, a: 1}
   m_AmbientIntensity: 1.08
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -195,7 +195,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 0.6586027, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4040035, b: 0, a: 1}
   m_Intensity: 15
   m_Range: 3.95
   m_SpotAngle: 80.1832
@@ -288,7 +288,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 0.6586027, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4040035, b: 0, a: 1}
   m_Intensity: 15
   m_Range: 3.95
   m_SpotAngle: 80.1832
@@ -510,7 +510,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 1413992504}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &256120927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -745,7 +744,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textAnimator: {fileID: 1189376014}
-  _timer: {fileID: 0}
   taskText: {fileID: 1003494599}
   _stakedTaskTx: {fileID: 1482192165}
 --- !u!4 &312004812
@@ -775,8 +773,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _taskStates: 00000000
-  _scorePosTx: {fileID: 0}
-  _scoreNegTx: {fileID: 0}
 --- !u!1 &377398377
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +815,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 0.6586027, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4040035, b: 0, a: 1}
   m_Intensity: 15
   m_Range: 3.95
   m_SpotAngle: 80.1832
@@ -1156,7 +1152,7 @@ MonoBehaviour:
   _shift: {fileID: 567062235}
   _e: {fileID: 1316726662}
   _startTime: 1.5
-  _timeBeforeShift: 0
+  _timeBetween: 3
 --- !u!4 &500494954
 Transform:
   m_ObjectHideFlags: 0
@@ -1534,7 +1530,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 774661271}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &636720636
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1646,7 +1641,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 1438775694}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &640885569
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2409,7 +2403,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 1509112900}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &1010817148
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2451,7 +2444,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.7137255, g: 1, b: 0.9497774, a: 1}
+  m_Color: {r: 1, g: 0.87768155, b: 0.7122642, a: 1}
   m_Intensity: 3
   m_Range: 10
   m_SpotAngle: 30
@@ -3008,7 +3001,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 757378986}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &1234238394
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3306,7 +3298,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 1443605412}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &1349809318
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3500,7 +3491,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 0.6586027, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4040035, b: 0, a: 1}
   m_Intensity: 15
   m_Range: 3.95
   m_SpotAngle: 80.1832
@@ -3987,7 +3978,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 1141273793}
   _currentObject: {fileID: 1416445496}
-  _soyBarra: 0
 --- !u!65 &1584222275
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4100,7 +4090,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 16537149}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &1603851899
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4212,7 +4201,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 1683165734}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &1619457709
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5302,7 +5290,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 1912404762}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &1813307397
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5414,7 +5401,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwPoint: {fileID: 1685193995}
   _currentObject: {fileID: 0}
-  _soyBarra: 0
 --- !u!65 &1849450089
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5657,7 +5643,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 0.6586027, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.4040035, b: 0, a: 1}
   m_Intensity: 15
   m_Range: 3.95
   m_SpotAngle: 80.1832
