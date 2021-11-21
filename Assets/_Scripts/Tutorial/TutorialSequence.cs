@@ -32,7 +32,6 @@ public class TutorialSequence : MonoBehaviour
     {
         _waitingForE = true;
         _showE = true;
-        _instructionsGenerator.OnTutorialCompleted();
     }
 
     IEnumerator Cr_TutorialSequence()
@@ -94,6 +93,7 @@ public class TutorialSequence : MonoBehaviour
             {
                 _e.StartFade(false);
                 _waitingForE = false;
+                _instructionsGenerator.OnTutorialCompleted();
             }
 
             yield return null;

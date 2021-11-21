@@ -54,6 +54,13 @@ public class GameController : MonoBehaviour
                 currentTaskIndex++;
                 FindObjectOfType<Timer>().OnCompleteTask();
                 ClearTasks();
+                if (currentTaskIndex == 4)
+                {
+                    foreach(BackgroundParallax b in FindObjectsOfType<BackgroundParallax>())
+                    {
+                        b.ChangeBG();
+                    }
+                }
                 if (_instructionsGenerator.GetTaskAmount() == currentTaskIndex)
                 {
                     FindObjectOfType<SimpleSampleCharacterControl>().Saluda();

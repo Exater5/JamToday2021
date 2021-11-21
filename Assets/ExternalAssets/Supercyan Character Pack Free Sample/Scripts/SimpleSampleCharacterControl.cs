@@ -115,6 +115,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        FindObjectOfType<TutorialSequence>().OnInteract();
         if (other.transform.gameObject.layer == 6) //Interactable
         {
             _overInteractable = true;

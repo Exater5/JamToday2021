@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UISprite : MonoBehaviour
 {
@@ -10,10 +11,10 @@ public class UISprite : MonoBehaviour
     [SerializeField] private bool _follow;
     [SerializeField] private Transform _objectToFollow;
     [SerializeField] private Vector3 _offset;
-    private Image _image;
+    private TextMeshProUGUI _image;
     private void Start()
     {
-        _image = GetComponent<Image>();
+        _image = GetComponent<TextMeshProUGUI>();
     }
 
     void LateUpdate () 

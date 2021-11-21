@@ -16,6 +16,11 @@ public class BackgroundParallax : MonoBehaviour
         _matBackMid.color = Color.white; 
         _matFrontMid.color = Color.white;
         _matFront.color = Color.white;
+
+        _matBack.mainTextureOffset = Vector2.zero;
+        _matBackMid.mainTextureOffset = Vector2.zero;
+        _matFrontMid.mainTextureOffset = Vector2.zero;
+        _matFront.mainTextureOffset = Vector2.zero;
     }
 
     void Update()
@@ -24,14 +29,18 @@ public class BackgroundParallax : MonoBehaviour
         _matBackMid.mainTextureOffset += Vector2.right * _trainSpeed * .2f * Time.deltaTime;
         _matFrontMid.mainTextureOffset += Vector2.right * _trainSpeed * .3f * Time.deltaTime;
         _matFront.mainTextureOffset += Vector2.right * _trainSpeed * .4f * Time.deltaTime;
+    }
 
-        if (Input.GetKeyDown(KeyCode.L)) { StartCoroutine(ChangeBackground()); }
+    public void ChangeBG()
+    {
+        StartCoroutine(ChangeBackground());
     }
 
     IEnumerator ChangeBackground()
     {
         if (_changeColor)
         {
+            print("a");
             for (float i = 0; i < _timeToFade; i += Time.deltaTime)
             {
                 _matBack.color = Color.Lerp(Color.white, _targetC, i / _timeToFade);

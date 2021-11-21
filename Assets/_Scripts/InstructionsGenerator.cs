@@ -73,7 +73,6 @@ public class InstructionsGenerator : MonoBehaviour
     private void Start()
     {
         StartCoroutine(CrTaskShow());
-        _tutCompleted = true;
     }
 
     public void ShowTask()
