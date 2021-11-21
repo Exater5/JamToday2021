@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] List<bool> _taskStates;
-    [SerializeField] CameraFollowChar _cameraFollowChar;
+    CameraFollowChar _cameraFollowChar;
+    [SerializeField] TextMeshProUGUI _scorePosTx, _scoreNegTx;
     InstructionsGenerator _instructionsGenerator;
     private int _currentTaskIndex;
+    private int _rightTasks, _failedTasks;
+
+
 
     private void Start()
     {
@@ -32,13 +37,16 @@ public class GameController : MonoBehaviour
                 valid = true;
                 if (CheckCompletedAllTasks())
                 {
-
+                    _rightTasks++;
+                    _scorePosTx.text = _rightTasks.ToString();
                 }
                 break;
             }
         }
         if (!valid)
         {
+            _failedTasks++;
+            _scoreNegTx.text = _failedTasks.ToString();
             FailTask();
         }
     }
@@ -67,6 +75,7 @@ public class GameController : MonoBehaviour
 
     public void FailTask()
     {
+        _instructionsGenerator.OnFailTask();
         _cameraFollowChar.ShakeCamera(10, 1f);
     }
 }

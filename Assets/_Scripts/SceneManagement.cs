@@ -5,24 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public static SceneManagement instance;
-    
-    /*
-    private void Awake() 
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
- 
-        instance = this;
-        DontDestroyOnLoad( this.gameObject );
-    }
-    */
-
     public void StartGame()
     {
-        GameFlowEvents.LoadScene.Invoke("MainGame");
+        //GameFlowEvents.LoadScene.Invoke("MainGame");
+        GameFlowEvents.LoadScene.Invoke("_NOTOCAR_MainGame");
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 }
