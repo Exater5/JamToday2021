@@ -13,6 +13,11 @@ public class JukeboxBehaviour : MonoBehaviour
     private void Start()
     {
         _meshRenderer.material = _newMat;
+    }
+
+    public void PowerOn()
+    {
+        _powered = true;
         StartCoroutine(ChangeColor());
     }
 
