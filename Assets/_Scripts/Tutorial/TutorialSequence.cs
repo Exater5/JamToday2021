@@ -85,7 +85,6 @@ public class TutorialSequence : MonoBehaviour
         {
             if (_showE)
             {
-                print("Aparezco");
                 _e.gameObject.SetActive(true);
                 _e.StartFade(true);
                 _showE = false;
@@ -93,7 +92,6 @@ public class TutorialSequence : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                print("Desaparezco");
                 _e.StartFade(false);
                 _waitingForE = false;
             }
