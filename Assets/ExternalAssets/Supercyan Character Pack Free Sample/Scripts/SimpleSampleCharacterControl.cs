@@ -175,6 +175,11 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         yield return new WaitForSeconds(1f);
         _doingAction = false;
     }
+
+    public void Saluda()
+    {
+        StartCoroutine(CrWave());
+    }
     public IEnumerator CrWave()
     {
         _doingAction = true;

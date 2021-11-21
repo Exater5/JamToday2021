@@ -33,7 +33,6 @@ public class GameController : MonoBehaviour
     {
         _taskStates[(int)taskClass.task] = true;
         bool correct = false;
-        print(taskClass.task+ "  " + taskClass.taskFunction);
         foreach (TaskClass tC in _instructionsGenerator.GetToDoTasksList()[currentTaskIndex])
         {
             if(tC.task == taskClass.task)
@@ -53,8 +52,17 @@ public class GameController : MonoBehaviour
                 _rightTasks++;
                 _scorePosTx.text = _rightTasks.ToString();
                 currentTaskIndex++;
+                FindObjectOfType<Timer>().OnCompleteTask();
                 ClearTasks();
-                _instructionsGenerator.OnNextTask();
+                if (_instructionsGenerator.GetTaskAmount() == currentTaskIndex)
+                {
+                    FindObjectOfType<SimpleSampleCharacterControl>().Saluda();
+                    GameFlowEvents.LoadScene.Invoke("MainMenu");
+                }
+                else
+                {
+                    _instructionsGenerator.OnNextTask();
+                }
             }
         }
         else

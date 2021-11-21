@@ -7,18 +7,21 @@ public class JukeboxBehaviour : MonoBehaviour
     [SerializeField] private Gradient _gradient;
     [SerializeField] private MeshRenderer _meshRenderer;
     private Material _newMat;
-
     [SerializeField] private bool _powered;
 
-    private void Start()
-    {
-        _meshRenderer.material = _newMat;
-    }
 
-    public void PowerOn()
+    public void SwapState()
     {
-        _powered = true;
-        StartCoroutine(ChangeColor());
+        _powered = !_powered;
+        if (_powered)
+        {
+            StartCoroutine(ChangeColor());
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Jukebox, TaskFunction.Abrir));
+        }
+        else
+        {
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Jukebox, TaskFunction.Cerrar));
+        }
     }
 
     private IEnumerator ChangeColor()
@@ -32,7 +35,7 @@ public class JukeboxBehaviour : MonoBehaviour
             if (_time > 1f)
                 _time = 0;
 
-            _meshRenderer.material.color = _gradient.Evaluate(_time);
+            _meshRenderer.material.SetColor("_EmissionColor", _gradient.Evaluate(_time));
             yield return null;
         }
     }

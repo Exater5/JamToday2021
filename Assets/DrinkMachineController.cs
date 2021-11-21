@@ -7,6 +7,9 @@ public class DrinkMachineController : MonoBehaviour
     [SerializeField] private GameObject _sodaPrefab;
     [SerializeField] private Transform _creationPoint;
     [SerializeField] private PickThrowZone _pickThrowZone;
+
+
+
     public void GiveSoda()
     {
         if (_pickThrowZone.CheckCurrentObject() == null)
