@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &126388188
 RectTransform:
   m_ObjectHideFlags: 0
@@ -174,9 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeToFade: 0.5
-  _transparent: {r: 0, g: 0, b: 0, a: 0}
+  _transparent: {r: 1, g: 1, b: 1, a: 0}
   _follow: 0
-  _objectToFollow: {fileID: 0}
+  _objectToFollow: {fileID: 496427575}
   _offset: {x: 0, y: 0, z: 0}
 --- !u!114 &126388190
 MonoBehaviour:
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -327,7 +327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &438818169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -425,7 +425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &772982595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -550,6 +550,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textAnimator: {fileID: 1856254670}
   taskText: {fileID: 2085169255}
+  _stakedTaskTx: {fileID: 0}
 --- !u!1001 &1140017204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1095,7 +1096,7 @@ MonoBehaviour:
   _shift: {fileID: 772982595}
   _e: {fileID: 438818169}
   _startTime: 1.5
-  _timeBetween: 3
+  _timeBeforeShift: 2
 --- !u!4 &1754947181
 Transform:
   m_ObjectHideFlags: 0
