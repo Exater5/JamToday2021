@@ -74,8 +74,6 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            _failedTasks++;
-            _scoreNegTx.text = _failedTasks.ToString();
             ClearTasks();
             FailTask();
         }
@@ -96,9 +94,19 @@ public class GameController : MonoBehaviour
 
     public void FailTask()
     {
-        _instructionsGenerator.OnFailTask();
-        _instructionsGenerator.OnNextTask();
         currentTaskIndex++;
+        _failedTasks++;
+        _scoreNegTx.text = _failedTasks.ToString();
+        if (_instructionsGenerator.GetTaskAmount() == currentTaskIndex)
+        {
+            FindObjectOfType<SimpleSampleCharacterControl>().Saluda();
+            GameFlowEvents.LoadScene.Invoke("MainMenu");
+        }
+        else
+        {
+            _instructionsGenerator.OnFailTask();
+            _instructionsGenerator.OnNextTask();
+        }
         _cameraFollowChar.ShakeCamera(10, 1f);
     }
 }
