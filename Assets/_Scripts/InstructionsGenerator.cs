@@ -87,4 +87,9 @@ public class InstructionsGenerator : MonoBehaviour
     {
         _timer.OnFailTask();
     }
+
+    public void OnTutorialCompleted()
+    {
+        _tutCompleted = true;
+    }
 }

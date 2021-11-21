@@ -9,13 +9,14 @@ public class TutorialSequence : MonoBehaviour
     [SerializeField] private UISprite _e;
     [SerializeField] private float _startTime;
     [SerializeField] private float _timeBeforeShift;
-
+    private InstructionsGenerator _instructionsGenerator;
     private bool _showWASD = false;
     private bool _waitingForShift = false;
     private bool _waitingForE = false;
 
     private void Start()
     {
+        _instructionsGenerator = FindObjectOfType<InstructionsGenerator>();
         StartCoroutine(ShowWASD());
     }
 
@@ -35,6 +36,7 @@ public class TutorialSequence : MonoBehaviour
     public void OnInteract()
     {
         _waitingForE = true;
+        _instructionsGenerator.OnTutorialCompleted();
         StartCoroutine(ShowE());
     }
 
