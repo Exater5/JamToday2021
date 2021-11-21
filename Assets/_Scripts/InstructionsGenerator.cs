@@ -11,8 +11,7 @@ public class InstructionsGenerator : MonoBehaviour
 
     private List<string> _tasksInfos;
     private List<float> _tasksTimes;
-    private List<List<Tasks>> _taskTypes;
-    private int _currentTask = 0;
+    private List<List<TaskClass>> _allTasks;
     private string _actualTask;
     private bool _tutCompleted;
 
@@ -22,11 +21,13 @@ public class InstructionsGenerator : MonoBehaviour
     {
         _tasksInfos = new List<string>();
         _tasksTimes = new List<float>();
-        _taskTypes = new List<List<Tasks>>();
+        _allTasks = new List<List<TaskClass>>();
         _tasksInfos.Add("Enciende el ordenador.");
-        _taskTypes.Add(new List<Tasks>() { Tasks.Ordenador });
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Ordenador, TaskFunction.Abrir) });
         _tasksTimes.Add(20f);
         _tasksInfos.Add("Abre la ventana y lleva un refresco a la barra del bar.");
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Ventana, TaskFunction.Abrir), new TaskClass(Tasks.Soda, TaskFunction.DejarEnBarra) });
+        _tasksTimes.Add(20f);
         _tasksInfos.Add("Coge la llamada del móvil, enciende la jukebox y usa el portátil.");
         _tasksInfos.Add("Enciende las luces, cierra la puerta y saca una foto.");
         _tasksInfos.Add("Apaga el ordenador, coge el móvil y no cierres la ventana.");
@@ -48,27 +49,21 @@ public class InstructionsGenerator : MonoBehaviour
         _tutCompleted = true;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space)) { ShowTask(); }
-    }
-
     public void ShowTask()
     {
-        _actualTask = _tasksInfos[_currentTask];
+        _actualTask = _tasksInfos[GameController.currentTaskIndex];
         taskText.text = _actualTask;
         _textAnimator.Play("ShowTask");
-        _currentTask++;
     }
 
     public void OnTaskDisabled()
     {
-        _stakedTaskTx.text = _actualTask = _tasksInfos[_currentTask -1];
+        _stakedTaskTx.text = _actualTask = _tasksInfos[GameController.currentTaskIndex];
     }
 
-    public List<List<Tasks>> GetToDoTasksList()
+    public List<List<TaskClass>> GetToDoTasksList()
     {
-        return _taskTypes;
+        return _allTasks;
     }
 
     IEnumerator CrTaskShow()
@@ -80,7 +75,7 @@ public class InstructionsGenerator : MonoBehaviour
         yield return new WaitForSeconds(2f);
         ShowTask();
         yield return new WaitForSeconds(1.5f);
-        _timer.StartTimer(_tasksTimes[_currentTask-1]);
+        _timer.StartTimer(_tasksTimes[GameController.currentTaskIndex]);
     }
 
     public void OnFailTask()
@@ -91,5 +86,10 @@ public class InstructionsGenerator : MonoBehaviour
     public void OnTutorialCompleted()
     {
         _tutCompleted = true;
+    }
+
+    public void OnNextTask()
+    {
+        StartCoroutine(CrTaskShow());
     }
 }

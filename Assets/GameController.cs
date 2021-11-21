@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     CameraFollowChar _cameraFollowChar;
     [SerializeField] TextMeshProUGUI _scorePosTx, _scoreNegTx;
     InstructionsGenerator _instructionsGenerator;
-    private int _currentTaskIndex;
+    public static int currentTaskIndex;
     private int _rightTasks, _failedTasks;
 
 
@@ -18,32 +18,28 @@ public class GameController : MonoBehaviour
     {
         _cameraFollowChar = FindObjectOfType<CameraFollowChar>();
         _instructionsGenerator = FindObjectOfType<InstructionsGenerator>();
-        GameTaskEvents.completeTask.AddListener(CompleteTask);
+        GameTaskEvents.completeConcreteTask.AddListener(CompleteTask);
     }
 
     public void ClearTasks()
     {
-        _taskStates.Clear();
+        for (int i = 0; i < _taskStates.Count; i++)
+        {
+            _taskStates[i] = false;
+        }
     }
 
-    public void CompleteTask(Tasks task)
+    public void CompleteTask(TaskClass taskClass)
     {
-        _taskStates[(int)task] = true;
-        bool valid = false;
-        foreach(Tasks t in _instructionsGenerator.GetToDoTasksList()[_currentTaskIndex])
+        _taskStates[(int)taskClass.task] = true;
+        if (_instructionsGenerator.GetToDoTasksList()[currentTaskIndex].Contains(taskClass))
         {
-            if (t == task)
-            {
-                valid = true;
-                if (CheckCompletedAllTasks())
-                {
-                    _rightTasks++;
-                    _scorePosTx.text = _rightTasks.ToString();
-                }
-                break;
-            }
+            _rightTasks++;
+            _scorePosTx.text = _rightTasks.ToString();
+            currentTaskIndex++;
+            _instructionsGenerator.OnNextTask();
         }
-        if (!valid)
+        else
         {
             _failedTasks++;
             _scoreNegTx.text = _failedTasks.ToString();
@@ -54,9 +50,9 @@ public class GameController : MonoBehaviour
     public bool CheckCompletedAllTasks()
     {
         bool completed = true;
-        for (int i = 0; i < _instructionsGenerator.GetToDoTasksList().Count; i++)
+        for (int i = 0; i < _instructionsGenerator.GetToDoTasksList()[currentTaskIndex].Count; i++)
         {
-            if (!_taskStates[(int)_instructionsGenerator.GetToDoTasksList()[_currentTaskIndex][i]])
+            if (!_taskStates[(int)_instructionsGenerator.GetToDoTasksList()[currentTaskIndex][i].task])
             {
                 completed = false;
             }
@@ -64,18 +60,11 @@ public class GameController : MonoBehaviour
         return completed;
     }
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            FailTask();
-        }
-    }
-
     public void FailTask()
     {
         _instructionsGenerator.OnFailTask();
+        _instructionsGenerator.OnNextTask();
+        currentTaskIndex++;
         _cameraFollowChar.ShakeCamera(10, 1f);
     }
 }
