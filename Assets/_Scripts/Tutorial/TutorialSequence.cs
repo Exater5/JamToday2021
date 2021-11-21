@@ -9,82 +9,96 @@ public class TutorialSequence : MonoBehaviour
     [SerializeField] private UISprite _e;
     [SerializeField] private float _startTime;
     [SerializeField] private float _timeBeforeShift;
+
     private InstructionsGenerator _instructionsGenerator;
+
     private bool _showWASD = false;
     private bool _waitingForShift = false;
     private bool _waitingForE = false;
+    private bool _showE = false;
 
     private void Start()
     {
         _instructionsGenerator = FindObjectOfType<InstructionsGenerator>();
-        StartCoroutine(ShowWASD());
+        StartCoroutine(Cr_TutorialSequence());
     }
-
+    
     void Update()
     {
-        if (_showWASD && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)|| Input.GetKeyDown(KeyCode.S)|| Input.GetKeyDown(KeyCode.D)))
-        {
-            _WASD.StartFade(false);
-            _showWASD = false;
-            _waitingForShift = true;
-            StartCoroutine(ShowShift());
-        }
-
-        //if (Input.GetKeyDown(KeyCode.A)) { OnInteract(); }
+        // if (Input.GetKeyDown(KeyCode.J)) { OnInteract(); }
     }
 
     public void OnInteract()
     {
         _waitingForE = true;
+        _showE = true;
         _instructionsGenerator.OnTutorialCompleted();
-        StartCoroutine(ShowE());
     }
 
-    IEnumerator ShowWASD()
+    IEnumerator Cr_TutorialSequence()
     {
         yield return new WaitForSeconds(_startTime);
         _WASD.gameObject.SetActive(true);
         _WASD.StartFade(true);
         _showWASD = true;
-    }
 
-    IEnumerator ShowShift()
-    {
-        yield return new WaitForSeconds(_timeBeforeShift);
-        _shift.gameObject.SetActive(true);
-        _shift.StartFade(true);
-
-        _WASD.gameObject.SetActive(false);
-
-        while (_waitingForShift)
+        while (_showWASD)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
             {
-                _shift.StartFade(false);
-                _waitingForShift = false;
+                _WASD.StartFade(false);
+                _showWASD = false;
+                _waitingForShift = true;
             }
 
             yield return null;
-        }
-    }
+        }        
 
-    IEnumerator ShowE()
-    {
-        if (!_waitingForShift)
+        yield return new WaitForSeconds(_timeBeforeShift);
+
+        if (_waitingForShift)
         {
-            _e.gameObject.SetActive(true);
-            _e.StartFade(true);
+            _shift.gameObject.SetActive(true);
+            _shift.StartFade(true);
 
-            while (_waitingForE)
+            _WASD.gameObject.SetActive(false);
+
+            while (_waitingForShift)
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    _e.StartFade(false);
-                    _waitingForE = false;
+                    _shift.StartFade(false);
+                    _waitingForShift = false;
                 }
 
                 yield return null;
             }
-        }        
+        }
+
+        while (!_waitingForShift && !_waitingForE)
+        {
+            
+            yield return null;
+        }
+
+        while (_waitingForE)
+        {
+            if (_showE)
+            {
+                print("Aparezco");
+                _e.gameObject.SetActive(true);
+                _e.StartFade(true);
+                _showE = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                print("Desaparezco");
+                _e.StartFade(false);
+                _waitingForE = false;
+            }
+
+            yield return null;
+        }
     }
 }
