@@ -10,6 +10,11 @@ public class UISprite : MonoBehaviour
     [SerializeField] private bool _follow;
     [SerializeField] private Transform _objectToFollow;
     [SerializeField] private Vector3 _offset;
+    private Image _image;
+    private void Start()
+    {
+        _image = GetComponent<Image>();
+    }
 
     void LateUpdate () 
     {
@@ -31,14 +36,12 @@ public class UISprite : MonoBehaviour
 
     private IEnumerator Fade(Color originC, Color targetC)
     {
-        Image image = GetComponent<Image>();
-
         for (float i = 0; i < _timeToFade; i += Time.deltaTime)
         {
-            image.color = Color.Lerp(originC, targetC, i / _timeToFade);
+            _image.color = Color.Lerp(originC, targetC, i / _timeToFade);
             yield return null;
         }
 
-        image.color = targetC;
+        _image.color = targetC;
     }
 }

@@ -9,17 +9,18 @@ public class InstructionsGenerator : MonoBehaviour
     [SerializeField] private Animator _textAnimator;
 
     private List<string> tasks;
+    private List<List<Tasks>> taskTypes;
     private int currentTask = 0;
-
     private string actualTask;
 
-    [SerializeField] private TextMeshProUGUI taskText;
+    [SerializeField] private TextMeshProUGUI taskText, _stakedTaskTx;
     
     void Awake()
     {
         tasks = new List<string>();
-
+        taskTypes = new List<List<Tasks>>();
         tasks.Add("Enciende el ordenador.");
+        taskTypes.Add(new List<Tasks>() { Tasks.Ordenador });
         tasks.Add("Abre la ventana y lleva un refresco a la barra del bar.");
         tasks.Add("Coge la llamada del móvil, enciende la jukebox y usa el portátil.");
         tasks.Add("Enciende las luces, cierra la puerta y saca una foto.");
@@ -47,5 +48,10 @@ public class InstructionsGenerator : MonoBehaviour
         taskText.text = actualTask;
         _textAnimator.Play("ShowTask");
         currentTask++;
+    }
+
+    public void OnTaskDisabled()
+    {
+        _stakedTaskTx.text = actualTask = tasks[currentTask -1];
     }
 }

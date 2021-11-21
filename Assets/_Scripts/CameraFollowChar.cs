@@ -21,4 +21,29 @@ public class CameraFollowChar : MonoBehaviour
         Vector3 targetRot = new Vector3(_convertedRotation.x, _convertedRotation.y - (diff * 2f), _convertedRotation.z);
         transform.rotation = Quaternion.Euler(targetRot);
     }
+
+    public void ShakeCamera(int iterations, float strenght)
+    {
+        StartCoroutine(MoveRandomVertical(iterations, strenght));
+    }
+
+    IEnumerator MoveRandomVertical(int iterations, float strenght)
+    {
+        int iterationsCount = iterations;
+        Vector3 startPos = transform.localPosition;
+        float randomV = Random.Range(-0.05f, 0.05f);
+        float duration = 0.05f / strenght;
+
+        for(float i = 0; i<duration; i+= Time.deltaTime)
+        {
+            transform.localPosition = Vector3.Lerp(startPos, startPos + Vector3.up * randomV, i/duration);
+            yield return null;
+        }
+        transform.localPosition = startPos;
+        if (iterationsCount > 0)
+        {
+            iterationsCount--;
+            StartCoroutine(MoveRandomVertical(iterationsCount, strenght));
+        }
+    }
 }

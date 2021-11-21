@@ -15,6 +15,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
     private InteractableInstance _lastInteractableInstance;
     private bool _doingAction, _overInteractable, _overPickable;
     private GameObject _pickedObject;
+    private int _pickedObjectType;
     private PickThrowZone _lastPickThrowZone;
 
     private readonly float m_interpolation = 10;
@@ -42,7 +43,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         {
             if (_overInteractable)
             {
-                if (Vector3.Angle(transform.forward, _lastInteractableInstance.transform.forward) < 70)
+                if (Vector3.Angle(transform.forward, -_lastInteractableInstance.GetInteractableDir().forward) < 90)
                 {
                     StartCoroutine(Interact());
                 }
@@ -51,14 +52,17 @@ public class SimpleSampleCharacterControl : MonoBehaviour
             {
                 if (_pickedObject != null)
                 {
-                    if (Vector3.Angle(transform.forward, -_lastPickThrowZone.GetThrowPoint().forward) < 70)
+                    if(_lastPickThrowZone.CheckCurrentObject() == null)
                     {
-                        StartCoroutine(Throw());
+                        if (Vector3.Angle(transform.forward, -_lastPickThrowZone.GetThrowPoint().forward) < 90)
+                        {
+                            StartCoroutine(Throw());
+                        }
                     }
                 }
                 else if(_lastPickThrowZone.CheckCurrentObject() != null)
                 {
-                    if (Vector3.Angle(transform.forward, -_lastPickThrowZone.GetThrowPoint().forward) < 70)
+                    if (Vector3.Angle(transform.forward, -_lastPickThrowZone.GetThrowPoint().forward) < 90)
                     {
                         StartCoroutine(Pick());
                     }
@@ -131,6 +135,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
+        _lastInteractableInstance = null;
         _overInteractable = false;
         _overPickable = false;
     }
@@ -151,6 +156,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         m_animator.SetTrigger("Pickup");
         yield return new WaitForSeconds(0.5f);
         _pickedObject = _lastPickThrowZone.PickCurrentObject();
+        _pickedObjectType = _lastPickThrowZone.GetObjectType();
         _pickedObject.transform.SetParent(_objectsParent);
         _pickedObject.transform.localPosition = Vector3.zero;
         yield return new WaitForSeconds(1f);
@@ -161,7 +167,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         _doingAction = true;
         m_animator.SetTrigger("Pickup");
         yield return new WaitForSeconds(0.5f);
-        _lastPickThrowZone.SetCurrentObject(_pickedObject);
+        _lastPickThrowZone.SetCurrentObject(_pickedObject, _pickedObjectType);
         _pickedObject.transform.SetParent(null);
         _pickedObject.transform.rotation = Quaternion.identity;
         _pickedObject.transform.position = _lastPickThrowZone.GetThrowPoint().position;
