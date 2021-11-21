@@ -8,13 +8,11 @@ public class TutorialSequence : MonoBehaviour
     [SerializeField] private UISprite _shift;
     [SerializeField] private UISprite _e;
     [SerializeField] private float _startTime;
-    [SerializeField] private float _timeBetween;
+    [SerializeField] private float _timeBeforeShift;
 
-
-    private bool _showWASD = true;
-    private bool _waitingForE;
-
-
+    private bool _showWASD = false;
+    private bool _waitingForShift = false;
+    private bool _waitingForE = false;
 
     private void Start()
     {
@@ -27,8 +25,17 @@ public class TutorialSequence : MonoBehaviour
         {
             _WASD.StartFade(false);
             _showWASD = false;
-            StartCoroutine(ShowOtherControls());
+            _waitingForShift = true;
+            StartCoroutine(ShowShift());
         }
+
+        //if (Input.GetKeyDown(KeyCode.A)) { OnInteract(); }
+    }
+
+    public void OnInteract()
+    {
+        _waitingForE = true;
+        StartCoroutine(ShowE());
     }
 
     IEnumerator ShowWASD()
@@ -36,32 +43,46 @@ public class TutorialSequence : MonoBehaviour
         yield return new WaitForSeconds(_startTime);
         _WASD.gameObject.SetActive(true);
         _WASD.StartFade(true);
+        _showWASD = true;
     }
 
-    IEnumerator ShowOtherControls()
+    IEnumerator ShowShift()
     {
-        yield return new WaitForSeconds(_timeBetween);
-
-        while (_waitingForE)
-        {
-            yield return null;
-        }
-        //escondo la E
-        //me espero a que se esconda
-
-
-
-
-        _WASD.gameObject.SetActive(false);
-        _e.gameObject.SetActive(true);
-        _e.StartFade(true);
-        yield return new WaitForSeconds(_timeBetween);
-        _e.StartFade(false);
-        yield return new WaitForSeconds(_timeBetween);
-        _e.gameObject.SetActive(false);
+        yield return new WaitForSeconds(_timeBeforeShift);
         _shift.gameObject.SetActive(true);
         _shift.StartFade(true);
-        yield return new WaitForSeconds(_timeBetween);
-        _shift.StartFade(false);
+
+        _WASD.gameObject.SetActive(false);
+
+        while (_waitingForShift)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                _shift.StartFade(false);
+                _waitingForShift = false;
+            }
+
+            yield return null;
+        }
+    }
+
+    IEnumerator ShowE()
+    {
+        if (!_waitingForShift)
+        {
+            _e.gameObject.SetActive(true);
+            _e.StartFade(true);
+
+            while (_waitingForE)
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    _e.StartFade(false);
+                    _waitingForE = false;
+                }
+
+                yield return null;
+            }
+        }        
     }
 }
