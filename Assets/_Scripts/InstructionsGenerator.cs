@@ -25,9 +25,12 @@ public class InstructionsGenerator : MonoBehaviour
         _tasksInfos.Add("Enciende el ordenador.");
         _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Ordenador, TaskFunction.Abrir) });
         _tasksTimes.Add(20f);
-        _tasksInfos.Add("Abre la ventana y lleva un refresco a la barra del bar.");
-        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Ventana, TaskFunction.Abrir), new TaskClass(Tasks.Soda, TaskFunction.DejarEnBarra) });
+        _tasksInfos.Add("Abre la ventana");
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Ventana, TaskFunction.Abrir)});
         _tasksTimes.Add(20f);
+        _tasksInfos.Add("Lleva un refresco a la barra del bar.");
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Expendedora, TaskFunction.Usar), new TaskClass(Tasks.Soda, TaskFunction.Coger), new TaskClass(Tasks.Soda, TaskFunction.DejarEnBarra) });
+        _tasksTimes.Add(30f);
         _tasksInfos.Add("Coge la llamada del móvil, enciende la jukebox y usa el portátil.");
         _tasksInfos.Add("Enciende las luces, cierra la puerta y saca una foto.");
         _tasksInfos.Add("Apaga el ordenador, coge el móvil y no cierres la ventana.");

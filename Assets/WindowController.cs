@@ -14,8 +14,15 @@ public class WindowController : MonoBehaviour
 
     public void SwapState()
     {
-        GameTaskEvents.completeTask.Invoke(Tasks.Ventana);
         _currentState = !_currentState;
+        if (_currentState)
+        {
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Ventana, TaskFunction.Abrir));
+        }
+        else
+        {
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Ventana, TaskFunction.Cerrar));
+        }
         _animator.SetBool("OpenWindow", _currentState);
     }
 }

@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public enum Tasks {Ordenador, Ventana, Expendedora, Soda, Movil, Jukebox, Impresora}
-public enum TaskFunction {Abrir, Cerrar, DejarEnBarra}
+public enum TaskFunction {Abrir, Cerrar, DejarEnBarra, Coger, Dejar, Usar}
 public static class GameTaskEvents
 {
-    public static SimpleTaskEvent completeTask = new SimpleTaskEvent();
     public static ConcreteTaskEvent completeConcreteTask = new ConcreteTaskEvent();
-    public class SimpleTaskEvent : UnityEvent<Tasks> { };
     public class ConcreteTaskEvent : UnityEvent<TaskClass> { };
 }

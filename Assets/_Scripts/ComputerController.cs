@@ -14,11 +14,12 @@ public class ComputerController : MonoBehaviour
         if (_currentState)
         {
             _meshRenderer.material = _onMat;
-            GameTaskEvents.completeTask.Invoke(0);
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Ordenador, TaskFunction.Abrir));
         }
         else
         {
             _meshRenderer.material = _offMat;
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Ordenador, TaskFunction.Cerrar));
         }
     }
 
