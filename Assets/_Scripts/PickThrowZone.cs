@@ -6,6 +6,7 @@ public class PickThrowZone : MonoBehaviour
 {
     [SerializeField] Transform _throwPoint;
     [SerializeField] GameObject _currentObject;
+    [SerializeField] bool _soyBarra;
     int _objectType; //0 soda, 1 movil
 
     public Transform GetThrowPoint()
@@ -27,19 +28,44 @@ public class PickThrowZone : MonoBehaviour
     {
         if (_objectType == 1)
         {
-            GameTaskEvents.completeTask.Invoke(Tasks.Expendedora);
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Soda, TaskFunction.Coger));
         }
         else
         {
-            GameTaskEvents.completeTask.Invoke(Tasks.Movil);
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Movil, TaskFunction.Coger));
         }
         StartCoroutine(SetNull());
         return _currentObject;
     }
-    public void SetCurrentObject(GameObject current, int objectType)
+    public void SetCurrentObject(GameObject current, int objectType, bool isPlayer)
     {
         _currentObject = current;
         _objectType = objectType;
+        if (isPlayer)
+        {
+            if (_soyBarra)
+            {
+                if (_objectType == 1)
+                {
+                    GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Soda, TaskFunction.DejarEnBarra));
+                }
+                else
+                {
+                    GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Movil, TaskFunction.DejarEnBarra));
+                }
+            }
+            else
+            {
+                if (_objectType == 1)
+                {
+                    GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Soda, TaskFunction.Dejar));
+                }
+                else
+                {
+                    GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Movil, TaskFunction.Dejar));
+                }
+            }
+        }
     }
     IEnumerator SetNull()
     {

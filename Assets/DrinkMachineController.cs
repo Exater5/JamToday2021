@@ -11,7 +11,8 @@ public class DrinkMachineController : MonoBehaviour
     {
         if (_pickThrowZone.CheckCurrentObject() == null)
         {
-            _pickThrowZone.SetCurrentObject(Instantiate(_sodaPrefab, _creationPoint.position, Quaternion.identity), 1);
+            GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Expendedora, TaskFunction.Usar));
+            _pickThrowZone.SetCurrentObject(Instantiate(_sodaPrefab, _creationPoint.position, Quaternion.identity), 1, false);
         }
     }
 }

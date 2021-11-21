@@ -167,7 +167,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         _doingAction = true;
         m_animator.SetTrigger("Pickup");
         yield return new WaitForSeconds(0.5f);
-        _lastPickThrowZone.SetCurrentObject(_pickedObject, _pickedObjectType);
+        _lastPickThrowZone.SetCurrentObject(_pickedObject, _pickedObjectType, true);
         _pickedObject.transform.SetParent(null);
         _pickedObject.transform.rotation = Quaternion.identity;
         _pickedObject.transform.position = _lastPickThrowZone.GetThrowPoint().position;

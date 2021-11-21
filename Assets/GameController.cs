@@ -32,22 +32,41 @@ public class GameController : MonoBehaviour
     public void CompleteTask(TaskClass taskClass)
     {
         _taskStates[(int)taskClass.task] = true;
-        if (_instructionsGenerator.GetToDoTasksList()[currentTaskIndex].Contains(taskClass))
+        bool correct = false;
+        print(taskClass.task+ "  " + taskClass.taskFunction);
+        foreach (TaskClass tC in _instructionsGenerator.GetToDoTasksList()[currentTaskIndex])
         {
-            _rightTasks++;
-            _scorePosTx.text = _rightTasks.ToString();
-            currentTaskIndex++;
-            _instructionsGenerator.OnNextTask();
+            if(tC.task == taskClass.task)
+            {
+                if (tC.taskFunction == taskClass.taskFunction)
+                {
+                    correct = true;
+                    break;
+                }
+            }
+        }
+        if (correct)
+        {
+            _taskStates[(int)taskClass.task] = true;
+            if (CheckCompletedAllCurrentTasks())
+            {
+                _rightTasks++;
+                _scorePosTx.text = _rightTasks.ToString();
+                currentTaskIndex++;
+                ClearTasks();
+                _instructionsGenerator.OnNextTask();
+            }
         }
         else
         {
             _failedTasks++;
             _scoreNegTx.text = _failedTasks.ToString();
+            ClearTasks();
             FailTask();
         }
     }
 
-    public bool CheckCompletedAllTasks()
+    public bool CheckCompletedAllCurrentTasks()
     {
         bool completed = true;
         for (int i = 0; i < _instructionsGenerator.GetToDoTasksList()[currentTaskIndex].Count; i++)
