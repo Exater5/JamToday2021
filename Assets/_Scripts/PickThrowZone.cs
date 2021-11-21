@@ -33,6 +33,7 @@ public class PickThrowZone : MonoBehaviour
         else
         {
             GameTaskEvents.completeConcreteTask.Invoke(new TaskClass(Tasks.Movil, TaskFunction.Coger));
+            FindObjectOfType<PhoneController>().TakePhone();
         }
         StartCoroutine(SetNull());
         return _currentObject;

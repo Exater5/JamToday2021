@@ -18,19 +18,27 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        if (_remainingTime > 0)
+        if (_counting)
         {
-            _remainingTime -= Time.deltaTime;
-            float convertedTime = _remainingTime * 1000f;
-            _textTimer.text = convertedTime.ToString("00:000");
+            if (_remainingTime > 0)
+            {
+                _remainingTime -= Time.deltaTime;
+                float convertedTime = _remainingTime * 1000f;
+                _textTimer.text = convertedTime.ToString("00:000");
 
+            }
+            else
+            {
+                _textTimer.text = "00:000";
+                OnTimeOut();
+                _counting = false;
+            }
         }
-        else if(_counting)
-        {
-            _textTimer.text = "00:000";
-            OnTimeOut();
-            _counting = false;
-        }
+    }
+
+    public void OnCompleteTask()
+    {
+        _counting = false;
     }
 
     public void OnFailTask()

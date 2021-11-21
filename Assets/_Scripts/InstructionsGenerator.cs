@@ -22,28 +22,52 @@ public class InstructionsGenerator : MonoBehaviour
         _tasksInfos = new List<string>();
         _tasksTimes = new List<float>();
         _allTasks = new List<List<TaskClass>>();
+
         _tasksInfos.Add("Enciende el ordenador.");
         _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Ordenador, TaskFunction.Abrir) });
         _tasksTimes.Add(20f);
+
         _tasksInfos.Add("Abre la ventana");
         _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Ventana, TaskFunction.Abrir)});
         _tasksTimes.Add(20f);
-        _tasksInfos.Add("Lleva un refresco a la barra del bar.");
-        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Expendedora, TaskFunction.Usar), new TaskClass(Tasks.Soda, TaskFunction.Coger), new TaskClass(Tasks.Soda, TaskFunction.DejarEnBarra) });
+
+        _tasksInfos.Add("Coge un refresco de la máquina expendedora.");
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Expendedora, TaskFunction.Usar), new TaskClass(Tasks.Soda, TaskFunction.Coger)});
         _tasksTimes.Add(30f);
+
+        _tasksInfos.Add("Deja el refresco en cualquier mesa");
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Soda, TaskFunction.DejarEnBarra), new TaskClass(Tasks.Soda, TaskFunction.Dejar) });
+        _tasksTimes.Add(30f);
+
         _tasksInfos.Add("Coge la llamada del móvil, enciende la jukebox y usa el portátil.");
-        _tasksInfos.Add("Enciende las luces, cierra la puerta y saca una foto.");
-        _tasksInfos.Add("Apaga el ordenador, coge el móvil y no cierres la ventana.");
-        _tasksInfos.Add("Apaga las luces, coge un refresco, déjalo en la mesa de la impresora y abre la puerta.");
-        _tasksInfos.Add("Haz una foto, deja las luces apagadas, cierra la ventana y no cojas el móvil.");
-        _tasksInfos.Add("Imprime un documento, enciende las luces, apaga el ordenador y abre la puerta.");
-        _tasksInfos.Add("Coge otro refresco y déjalo junto al pc, apaga el portátil, no dejes que la canción siga sonando y saca otra foto.");
-        _tasksInfos.Add("Enciende el ordenador,  apaga el ordenador y vuelve a encenderlo mientras no estás en silencio.");
-        _tasksInfos.Add("Abre la ventana, coge el móvil, imprime otro documento y enciende el portátil.");
-        _tasksInfos.Add("Cierra la puerta, apaga las luces, coge un refresco y déjalo junto al móvil, imprime otro documento más y no no apagues el ordenador.");
-        _tasksInfos.Add("Cierra la ventana, no no no dejes encendida la jukebox, no imprimas otro documento, usa el ordenador y lleva un refresco a tu compañero de vagón.");
-        _tasksInfos.Add("Saca dos fotos, coge la llamada, saca otra foto más, apaga el portátil, enciende las luces y haz lo contrario en la siguiente tarea.");
-        _tasksInfos.Add("No no no imprimas nada, deja cerrada la ventana y estate en completo silencio.");
+        FindObjectOfType<PhoneController>().CallEntry();
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Movil, TaskFunction.Coger), new TaskClass(Tasks.Jukebox, TaskFunction.Abrir), new TaskClass(Tasks.Portatil, TaskFunction.Abrir)});
+        _tasksTimes.Add(30f);
+
+        _tasksInfos.Add("Saca una foto del paisaje.");
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Camara, TaskFunction.Abrir)});
+        _tasksTimes.Add(15);
+
+        _tasksInfos.Add("Inicia el router.");
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Router, TaskFunction.Abrir), new TaskClass(Tasks.Router, TaskFunction.Cerrar)});
+        _tasksTimes.Add(20f);
+
+        _tasksInfos.Add("No enciendas ni portátil ni el ordenador.");
+        _allTasks.Add(new List<TaskClass>() { new TaskClass(Tasks.Portatil, TaskFunction.Cerrar), new TaskClass(Tasks.Ordenador, TaskFunction.Cerrar) });
+        _tasksTimes.Add(30f);
+
+        //_tasksInfos.Add("Enciende las luces, cierra la puerta y saca una foto.");
+        //_tasksInfos.Add("Apaga el ordenador, coge el móvil y no cierres la ventana.");
+        //_tasksInfos.Add("Apaga las luces, coge un refresco, déjalo en la mesa de la impresora y abre la puerta.");
+        //_tasksInfos.Add("Haz una foto, deja las luces apagadas, cierra la ventana y no cojas el móvil.");
+        //_tasksInfos.Add("Imprime un documento, enciende las luces, apaga el ordenador y abre la puerta.");
+        //_tasksInfos.Add("Coge otro refresco y déjalo junto al pc, apaga el portátil, no dejes que la canción siga sonando y saca otra foto.");
+        //_tasksInfos.Add("Enciende el ordenador,  apaga el ordenador y vuelve a encenderlo mientras no estás en silencio.");
+        //_tasksInfos.Add("Abre la ventana, coge el móvil, imprime otro documento y enciende el portátil.");
+        //_tasksInfos.Add("Cierra la puerta, apaga las luces, coge un refresco y déjalo junto al móvil, imprime otro documento más y no no apagues el ordenador.");
+        //_tasksInfos.Add("Cierra la ventana, no no no dejes encendida la jukebox, no imprimas otro documento, usa el ordenador y lleva un refresco a tu compañero de vagón.");
+        //_tasksInfos.Add("Saca dos fotos, coge la llamada, saca otra foto más, apaga el portátil, enciende las luces y haz lo contrario en la siguiente tarea.");
+        //_tasksInfos.Add("No no no imprimas nada, deja cerrada la ventana y estate en completo silencio.");
     }
 
     private void Start()
@@ -94,5 +118,10 @@ public class InstructionsGenerator : MonoBehaviour
     public void OnNextTask()
     {
         StartCoroutine(CrTaskShow());
+    }
+
+    public int GetTaskAmount()
+    {
+        return _tasksInfos.Count;
     }
 }
