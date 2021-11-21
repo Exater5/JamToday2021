@@ -54,4 +54,9 @@ public class InstructionsGenerator : MonoBehaviour
     {
         _stakedTaskTx.text = actualTask = tasks[currentTask -1];
     }
+
+    public List<List<Tasks>> GetToDoTasksList()
+    {
+        return taskTypes;
+    }
 }

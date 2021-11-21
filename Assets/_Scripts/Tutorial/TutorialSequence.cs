@@ -10,7 +10,11 @@ public class TutorialSequence : MonoBehaviour
     [SerializeField] private float _startTime;
     [SerializeField] private float _timeBetween;
 
+
     private bool _showWASD = true;
+    private bool _waitingForE;
+
+
 
     private void Start()
     {
@@ -37,6 +41,17 @@ public class TutorialSequence : MonoBehaviour
     IEnumerator ShowOtherControls()
     {
         yield return new WaitForSeconds(_timeBetween);
+
+        while (_waitingForE)
+        {
+            yield return null;
+        }
+        //escondo la E
+        //me espero a que se esconda
+
+
+
+
         _WASD.gameObject.SetActive(false);
         _e.gameObject.SetActive(true);
         _e.StartFade(true);

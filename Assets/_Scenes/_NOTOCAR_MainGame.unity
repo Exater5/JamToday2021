@@ -773,6 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _taskStates: 00000000
+  _cameraFollowChar: {fileID: 0}
 --- !u!1 &377398377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &500494953
 MonoBehaviour:
   m_ObjectHideFlags: 0
