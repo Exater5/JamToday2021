@@ -42,7 +42,7 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         {
             if (_overInteractable)
             {
-                if (Vector3.Angle(transform.forward, _lastInteractableInstance.transform.position) < 60)
+                if (Vector3.Angle(transform.forward, _lastInteractableInstance.transform.forward) < 70)
                 {
                     StartCoroutine(Interact());
                 }
@@ -51,14 +51,14 @@ public class SimpleSampleCharacterControl : MonoBehaviour
             {
                 if (_pickedObject != null)
                 {
-                    if (Vector3.Angle(transform.forward, _lastPickThrowZone.GetThrowPoint().position) < 60)
+                    if (Vector3.Angle(transform.forward, -_lastPickThrowZone.GetThrowPoint().forward) < 70)
                     {
                         StartCoroutine(Throw());
                     }
                 }
                 else if(_lastPickThrowZone.CheckCurrentObject() != null)
                 {
-                    if (Vector3.Angle(transform.forward, _lastPickThrowZone.CheckCurrentObject().transform.position) < 60)
+                    if (Vector3.Angle(transform.forward, -_lastPickThrowZone.GetThrowPoint().forward) < 70)
                     {
                         StartCoroutine(Pick());
                     }
@@ -133,7 +133,6 @@ public class SimpleSampleCharacterControl : MonoBehaviour
     {
         _overInteractable = false;
         _overPickable = false;
-        _lastInteractableInstance = null;
     }
 
     public IEnumerator Interact()
